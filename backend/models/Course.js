@@ -1,0 +1,1 @@
+const mongoose=require("mongoose"); module.exports=mongoose.model("Course",new mongoose.Schema({title:{type:String,required:true},description:{type:String,required:true},category:{type:String,enum:["NEET","KCET","JEE"],required:true},image:{type:String,default:""}},{timestamps:true}));

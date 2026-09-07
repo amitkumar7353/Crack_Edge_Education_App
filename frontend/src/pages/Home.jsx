@@ -1,0 +1,1 @@
+import{Link}from"react-router-dom";export default function Home(){return <main className="container hero"><h1>Prepare. Practice. Succeed. 🚀</h1><p>Crack Edge helps students prepare for NEET, KCET and JEE.</p><Link to="/courses"><button>Explore Courses</button></Link> <Link to="/tests"><button>Mock Tests</button></Link></main>}
