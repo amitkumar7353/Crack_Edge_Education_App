@@ -10,6 +10,7 @@ import Courses from "./pages/Courses";
 import Tests from "./pages/Tests";
 import Exam from "./pages/Exam";
 import Admin from "./pages/Admin";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/tests" element={<Tests />} />
         <Route path="/exam/:id" element={<Exam />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

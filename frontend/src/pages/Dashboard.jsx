@@ -2,7 +2,7 @@ import React from "react";
 import "./Dashboard.css";
 
 function Dashboard() {
-  const studentName = localStorage.getItem("name") || "Student";
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <div className="dashboard">
@@ -13,13 +13,13 @@ function Dashboard() {
           <div className="logo-circle">CE</div>
 
           <div>
-            <h1>Welcome, {studentName}! 👋</h1>
+            <h1>Welcome, {user?.name || "Student"} 👋 </h1>
             <p>Learn today. Lead tomorrow. 🚀</p>
           </div>
         </div>
 
         <div className="hero">
-          <h2>Prepare for Your Future</h2>
+          <h2>Welcome to Shivam Tech Institute</h2>
           <p>
             Practice mock tests, improve your knowledge, and achieve your
             dreams with Crack Edge.

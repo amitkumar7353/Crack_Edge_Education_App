@@ -1,1 +1,42 @@
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f4f7fb;color:#1f2937}nav{background:#1565c0;padding:16px 7%;display:flex;justify-content:space-between;align-items:center;gap:15px}nav a{color:white;text-decoration:none;margin:0 8px}.logo{font-size:22px;font-weight:bold}.container{width:min(1100px,90%);margin:40px auto}.hero{text-align:center;padding:70px 0}.hero h1{font-size:42px;color:#1565c0}.grid,.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}.card,.question,.form{background:white;padding:22px;border-radius:10px;box-shadow:0 2px 10px #0001}.form{width:min(400px,90%);margin:60px auto}input,textarea,select{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:6px}textarea{min-height:90px}button{background:#1565c0;color:white;border:0;padding:11px 18px;border-radius:6px;cursor:pointer;margin:4px}.timer{position:sticky;top:10px;background:#d32f2f;color:white;padding:12px;border-radius:8px}.question label{display:block;background:#f4f7fb;padding:10px;margin:8px 0;border-radius:6px}.question input{width:auto}@media(max-width:700px){nav{flex-direction:column}.hero h1{font-size:30px}}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #102a56;
+  padding: 10px 30px;
+  color: white;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: white;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links button {
+  padding: 8px 15px;
+  cursor: pointer;
+}

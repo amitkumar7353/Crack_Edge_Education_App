@@ -1,4 +1,106 @@
-const r=require("express").Router(),bcrypt=require("bcryptjs"),jwt=require("jsonwebtoken"),User=require("../models/User");
-r.post("/register",async(req,res)=>{try{let {name,email,password}=req.body;if(!name||!email||!password)return res.status(400).json({message:"All fields required"});if(await User.findOne({email}))return res.status(400).json({message:"User already exists"});let u=await User.create({name,email,password:await bcrypt.hash(password,10)});res.status(201).json({message:"Registered",user:{id:u._id,name:u.name,email:u.email}})}catch(e){res.status(500).json({message:e.message})}});
-r.post("/login",async(req,res)=>{try{let u=await User.findOne({email:req.body.email});if(!u||!await bcrypt.compare(req.body.password,u.password))return res.status(400).json({message:"Invalid email or password"});let token=jwt.sign({id:u._id,role:u.role},process.env.JWT_SECRET,{expiresIn:"7d"});res.json({token,user:{id:u._id,name:u.name,email:u.email,role:u.role}})}catch(e){res.status(500).json({message:e.message})}});
-module.exports=r;
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../models/User");
+
+// REGISTER STUDENT
+router.post("/register", async (req, res) => {
+  try {
+    const { name, email, phone, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        message: "Name, email and password are required",
+      });
+    }
+
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).json({
+        message: "Email already registered. Please login.",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await User.create({
+      name,
+      email,
+      phone: phone || "",
+      password: hashedPassword,
+      role: "student",
+    });
+
+    res.status(201).json({
+      message: "Student registered successfully",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error("REGISTER ERROR:", error);
+
+    res.status(500).json({
+      message: error.message || "Registration failed",
+    });
+  }
+});
+
+// LOGIN STUDENT
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Invalid email or password",
+      });
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(400).json({
+        message: "Invalid email or password",
+      });
+    }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+        role: user.role,
+      },
+      process.env.JWT_SECRET || "shivam_tech_secret",
+      {
+        expiresIn: "7d",
+      }
+    );
+
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone || "",
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error("LOGIN ERROR:", error);
+
+    res.status(500).json({
+      message: error.message || "Login failed",
+    });
+  }
+});
+
+module.exports = router;
